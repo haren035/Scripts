@@ -19,3 +19,10 @@
 # Example: ./aws_resource_list.sh ap-southeast-2 ec2
 
 ####################################################################################################
+
+if [ $# -ne 2 ]; then
+    echo "Usage: ./aws_resource_list.sh  <aws_region> <aws_service>"
+    echo "Example: ./aws_resource_list.sh us-east-1 ec2"
+    exit 1
+fi
+
