@@ -39,8 +39,6 @@ Installation: Clone This Repository
 To clone this repository to your local machine, run:
 
 ```sh
-Copy
-Edit
 git clone https://github.com/your-username/aws-resource-listing.git
 cd aws-resource-listing
 ```
@@ -49,8 +47,6 @@ How to Run the Script
 1️⃣ Give Execute Permission (First-Time Only)
 
 ```sh
-Copy
-Edit
 chmod +x aws_resource_list.sh
 ```
 
@@ -63,24 +59,17 @@ AWS Service (ec2, s3, iam, lambda)
 🔹 Example: List EC2 Instances
 
 ```sh
-Copy
-Edit
 ./aws_resource_list.sh us-east-1 ec2
 ```
 
 🔹 Example: List S3 Buckets
 
 ```sh
-Copy
-Edit
 ./aws_resource_list.sh ap-southeast-2 s3
 ```
 
 Expected Output
 ✅ EC2 Example Output
-markdown
-Copy
-Edit
 Running script under AWS Account: 123456789012
 Listing EC2 Instances in us-east-1
 
@@ -94,15 +83,10 @@ Listing EC2 Instances in us-east-1
 ---
 
 ✅ S3 Example Output
-markdown
-Copy
-Edit
 Running script under AWS Account: 123456789012
 Listing S3 Buckets
 
 ---
-
-## | Bucket Name |
 
 | my-company-logs |
 | dev-environment-storage |
