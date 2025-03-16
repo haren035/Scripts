@@ -53,9 +53,8 @@ chmod +x aws_resource_list.sh
 2️⃣ Run the Script
 
 The script requires two arguments:
-
-AWS Region (e.g., us-east-1)
-AWS Service (ec2, s3, iam, lambda)
+-AWS Region (e.g., us-east-1)
+-AWS Service (ec2, s3, iam, lambda)
 🔹 Example: List EC2 Instances
 
 ```sh
