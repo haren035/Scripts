@@ -38,32 +38,44 @@ aws configure
 Installation: Clone This Repository
 To clone this repository to your local machine, run:
 
-sh
+```sh
 Copy
 Edit
 git clone https://github.com/your-username/aws-resource-listing.git
 cd aws-resource-listing
+```
+
 How to Run the Script
 1️⃣ Give Execute Permission (First-Time Only)
-sh
+
+```sh
 Copy
 Edit
 chmod +x aws_resource_list.sh
+```
+
 2️⃣ Run the Script
+
 The script requires two arguments:
 
 AWS Region (e.g., us-east-1)
 AWS Service (ec2, s3, iam, lambda)
 🔹 Example: List EC2 Instances
-sh
+
+```sh
 Copy
 Edit
 ./aws_resource_list.sh us-east-1 ec2
+```
+
 🔹 Example: List S3 Buckets
-sh
+
+```sh
 Copy
 Edit
 ./aws_resource_list.sh ap-southeast-2 s3
+```
+
 Expected Output
 ✅ EC2 Example Output
 markdown
@@ -97,28 +109,3 @@ Listing S3 Buckets
 | backup-2024 |
 
 ---
-
-Error Handling & Validation
-✅ AWS CLI Missing:
-
-sh
-Copy
-Edit
-AWS CLI is not installed. Install it from https://aws.amazon.com/cli/
-✅ Invalid AWS Service Provided:
-
-sh
-Copy
-Edit
-Invalid service. Enter a valid service (ec2, s3, iam, lambda).
-✅ AWS CLI Authentication Fails:
-
-sh
-Copy
-Edit
-AWS CLI is not authenticated. Check your credentials.
-Troubleshooting
-Issue Solution
-AWS CLI is not found Run aws --version. If not installed, install from here.
-Script fails with permission error Run chmod +x aws_resource_list.sh and retry.
-Invalid AWS credentials Run aws configure and ensure valid credentials.
