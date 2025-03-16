@@ -51,3 +51,78 @@ The script requires two arguments:
 AWS Region (e.g., us-east-1)
 AWS Service (ec2, s3, iam, lambda)
 ```
+
+🔹 Example: List EC2 Instances
+sh
+Copy
+Edit
+./aws_resource_list.sh us-east-1 ec2
+🔹 Example: List S3 Buckets
+sh
+Copy
+Edit
+./aws_resource_list.sh ap-southeast-2 s3
+Expected Output
+EC2 Example Output
+markdown
+Copy
+Edit
+Running script under AWS Account: 123456789012
+Listing EC2 Instances in us-east-1
+
+---
+
+| InstanceId          | State   |
+| ------------------- | ------- |
+| i-0abcd1234efgh5678 | running |
+| i-09xyz9876lmn5432  | stopped |
+
+---
+
+S3 Example Output
+markdown
+Copy
+Edit
+Running script under AWS Account: 123456789012
+Listing S3 Buckets
+
+---
+
+## | Bucket Name |
+
+| my-company-logs |
+| dev-environment-storage |
+| backup-2024 |
+
+---
+
+Error Handling & Validation
+AWS CLI Missing:
+
+sh
+Copy
+Edit
+AWS CLI is not installed. Install it from https://aws.amazon.com/cli/
+Invalid AWS Service Provided:
+
+sh
+Copy
+Edit
+Invalid service. Enter a valid service (ec2, s3, iam, lambda).
+AWS CLI Authentication Fails:
+
+sh
+Copy
+Edit
+AWS CLI is not authenticated. Check your credentials.
+Troubleshooting
+Issue Solution
+AWS CLI is not found Run aws --version. If not installed, install from here.
+Script fails with permission error Run chmod +x aws_resource_list.sh and retry.
+Invalid AWS credentials Run aws configure and ensure valid credentials.
+License
+This project is open-source and available under the MIT License.
+
+```
+
+```
