@@ -1,7 +1,3 @@
-md
-Copy
-Edit
-
 # AWS Resource Listing Script
 
 ## About
@@ -35,6 +31,8 @@ Before using this script, ensure the following:
 
 ```sh
 aws configure
+```
+
 3️⃣ Bash Installed (For Windows users, use Git Bash or WSL)
 
 Installation: Clone This Repository
@@ -73,25 +71,33 @@ Copy
 Edit
 Running script under AWS Account: 123456789012
 Listing EC2 Instances in us-east-1
-------------------------------------------------------
-| InstanceId        | State   |
-|-------------------|---------|
+
+---
+
+| InstanceId          | State   |
+| ------------------- | ------- |
 | i-0abcd1234efgh5678 | running |
-| i-09xyz9876lmn5432 | stopped |
-------------------------------------------------------
+| i-09xyz9876lmn5432  | stopped |
+
+---
+
 ✅ S3 Example Output
 markdown
 Copy
 Edit
 Running script under AWS Account: 123456789012
 Listing S3 Buckets
--------------------------------
-|        Bucket Name          |
--------------------------------
-| my-company-logs            |
-| dev-environment-storage    |
-| backup-2024                |
--------------------------------
+
+---
+
+## | Bucket Name |
+
+| my-company-logs |
+| dev-environment-storage |
+| backup-2024 |
+
+---
+
 Error Handling & Validation
 ✅ AWS CLI Missing:
 
@@ -112,8 +118,7 @@ Copy
 Edit
 AWS CLI is not authenticated. Check your credentials.
 Troubleshooting
-Issue	Solution
-AWS CLI is not found	Run aws --version. If not installed, install from here.
-Script fails with permission error	Run chmod +x aws_resource_list.sh and retry.
-Invalid AWS credentials	Run aws configure and ensure valid credentials.
-```
+Issue Solution
+AWS CLI is not found Run aws --version. If not installed, install from here.
+Script fails with permission error Run chmod +x aws_resource_list.sh and retry.
+Invalid AWS credentials Run aws configure and ensure valid credentials.
