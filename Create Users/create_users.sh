@@ -27,3 +27,34 @@ if [ $# -ne 1 ]; then
           echo "Usage: $0 <input_file>"
           exit 1
 fi
+
+# Check if user list file exists
+if [ ! -f "$INPUT_FILE" ]; then
+          echo "User list file '$INPUT_FILE' not found. Please check the path."
+          exit 1
+fi
+
+# Function to generate logs
+log_message() {
+          echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >>$LOG_FILE
+}
+
+# Create the log file if it doesn't exist
+if [ ! -f "$LOG_FILE" ]; then
+          touch "$LOG_FILE"
+          chmod 0600 "$LOG_FILE"
+          log_message "Log file created: $LOG_FILE"
+fi
+
+# Create the password file if it doesn't exist
+if [ ! PASSWORD_FILE ]; then
+          mkdir -p /var/secure
+          touch "$PASSWORD_FILE"
+          chmod 0600 "$PASSWORD_FILE"
+          log_message "Password file created: PASSWORD_FILE"
+fi
+
+# Function to generate a random Psuedo password
+generate_password() {
+          openssl rand -base64
+}
