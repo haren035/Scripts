@@ -59,49 +59,58 @@ generate_password() {
           openssl rand -base64
 }
 
-
-
 # Read the input file line by line and save them into variables
 while IFS=';' read -r username groups || [ -n "$username" ]; do
-    username=$(echo "$username" | xargs)
-    groups=$(echo "$groups" | xargs)
+          username=$(echo "$username" | xargs)
+          groups=$(echo "$groups" | xargs)
 
-    # Check if the personal group exists, create one if it doesn't
-    if ! getent group "$username" &>/dev/null; then
-        echo "Group $username does not exist, adding it now"
-        groupadd "$username"
-        log_message "Created personal group $username"
-    fi
+          # Check if the personal group exists, create one if it doesn't
+          if ! getent group "$username" &>/dev/null; then
+                    echo "Group $username does not exist, adding it now"
+                    groupadd "$username"
+                    log_message "Created personal group $username"
+          fi
 
-    # Check if the user exists
-    if id -u "$username" &>/dev/null; then
-        echo "User $username exists"
-        log_message "User $username already exists"
-    else
-        # Create a new user with the created group if the user does not exist
-        useradd -m -g $username -s /bin/bash "$username"
-        log_message "Created a new user $username"
-    fi
+          # Check if the user exists
+          if id -u "$username" &>/dev/null; then
+                    echo "User $username exists"
+                    log_message "User $username already exists"
+          else
+                    # Create a new user with the created group if the user does not exist
+                    useradd -m -g $username -s /bin/bash "$username"
+                    log_message "Created a new user $username"
+          fi
 
-    # Check if the groups were specified
-    if [ -n "$groups" ]; then
-        # Read through the groups saved in the groups variable created earlier and split each group by ','
-        IFS=',' read -r  group_array <<< "$groups"
+          # Check if the groups were specified
+          if [ -n "$groups" ]; then
+                    # Read through the groups saved in the groups variable created earlier and split each group by ','
+                    IFS=',' read -r group_array <<<"$groups"
 
-        # Loop through the groups
-        for group in "${group_array}"; do
-            # Remove the trailing and leading whitespaces and save each group to the group variable
-            group=$(echo "$group" | xargs) # Remove leading/trailing whitespace
+                    # Loop through the groups
+                    for group in "${group_array}"; do
+                              # Remove the trailing and leading whitespaces and save each group to the group variable
+                              group=$(echo "$group" | xargs) # Remove leading/trailing whitespace
 
-            # Check if the group already exists
-            if ! getent "$group" >/dev/null; then
-                # If the group does not exist, create a new group
-                groupadd "$group"
-                log_message "Created group $group."
-            fi
+                              # Check if the group already exists
+                              if ! getent "$group" >/dev/null; then
+                                        # If the group does not exist, create a new group
+                                        groupadd "$group"
+                                        log_message "Created group $group."
+                              fi
 
-            # Add the user to each group
-            usermod - "$group" "$username"
-            log_message "Added user $username to group $group."
-        done
-    fi
+                              # Add the user to each group
+                              usermod - "$group" "$username"
+                              log_message "Added user $username to group $group."
+                    done
+          fi
+
+          # Create and set a user password
+          password=$(generate_password)
+          echo "$username:$password" | chpasswd
+          # Save user and password to a file
+          echo "$username,$password" >>$PASSWORD_FILE
+
+done <"$INPUT_FILE"
+
+log_message "User created successfully"
+echo "Users have been created and added to their groups successfully"
