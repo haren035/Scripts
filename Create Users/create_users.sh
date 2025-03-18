@@ -47,16 +47,16 @@ if [ ! -f "$LOG_FILE" ]; then
 fi
 
 # Create the password file if it doesn't exist
-if [ ! PASSWORD_FILE ]; then
+if [ ! -f "$PASSWORD_FILE" ]; then
           mkdir -p /var/secure
           touch "$PASSWORD_FILE"
           chmod 0600 "$PASSWORD_FILE"
-          log_message "Password file created: PASSWORD_FILE"
+          log_message "Password file created: $PASSWORD_FILE"
 fi
 
 # Function to generate a random Psuedo password
 generate_password() {
-          openssl rand -base64
+          openssl rand -base64 12
 }
 
 # Read the input file line by line and save them into variables
@@ -84,22 +84,22 @@ while IFS=';' read -r username groups || [ -n "$username" ]; do
           # Check if the groups were specified
           if [ -n "$groups" ]; then
                     # Read through the groups saved in the groups variable created earlier and split each group by ','
-                    IFS=',' read -r group_array <<<"$groups"
+                    IFS=',' read -r -a group_array <<<"$groups"
 
                     # Loop through the groups
-                    for group in "${group_array}"; do
+                    for group in "${group_array[@]}"; do
                               # Remove the trailing and leading whitespaces and save each group to the group variable
                               group=$(echo "$group" | xargs) # Remove leading/trailing whitespace
 
                               # Check if the group already exists
-                              if ! getent "$group" >/dev/null; then
+                              if ! getent group "$group" &>/dev/null; then
                                         # If the group does not exist, create a new group
                                         groupadd "$group"
                                         log_message "Created group $group."
                               fi
 
                               # Add the user to each group
-                              usermod - "$group" "$username"
+                              usermod -aG "$group" "$username"
                               log_message "Added user $username to group $group."
                     done
           fi
